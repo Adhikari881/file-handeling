@@ -10,6 +10,8 @@ def write_to_mysql( table):
 
     while True:
         
+        start = time.time()
+
         samples = {"place":[{'Data': random.randint(1,10), 'Timestamp': time.strftime('%Y-%m-%d %H:%M:%S')}]*5}
         
 
@@ -21,7 +23,8 @@ def write_to_mysql( table):
                 print(query)
                 cursor.execute(query)
                 conn.commit()
-                time.sleep(1)  # Wait for 1 second
+                # time.sleep(1)  # Wait for 1 second
+        print('duration',time.time()-start)
         break
 
     conn.close()
