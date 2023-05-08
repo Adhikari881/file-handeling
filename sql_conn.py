@@ -9,15 +9,20 @@ def write_to_mysql( table):
     cursor = conn.cursor()
 
     while True:
-        data = random_data()
-        timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        
+        samples = {"place":[{'Data': random.randint(1,10), 'Timestamp': time.strftime('%Y-%m-%d %H:%M:%S')}]*5}
+        
 
-        query = f"INSERT INTO {table} (data_random, time_stamp) VALUES ('{data}', '{timestamp}')"
-        print(query)
-        cursor.execute(query)
-        conn.commit()
-
-        time.sleep(1)  # Wait for 1 second
+        for key, value in samples.items():
+            print(key, value)
+            for val in value:
+                print(val['Data'],val['Timestamp'])
+                query = f"INSERT INTO {table} (data_random, time_stamp) VALUES ('{val['Data']}', '{val['Timestamp']}')"
+                print(query)
+                cursor.execute(query)
+                conn.commit()
+                time.sleep(1)  # Wait for 1 second
+        break
 
     conn.close()
 
