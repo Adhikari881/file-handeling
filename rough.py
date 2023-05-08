@@ -1,8 +1,13 @@
 import csv
 import time
-import os.path
+import os.path, random
 
-def write_to_csv(filename):
+def write_to_csv():
+
+    samples = {"place":[{'Data': random.randint(1,10), 'Timestamp': time.strftime('%Y-%m-%d %H:%M:%S')}]*5}
+    for key, value in samples.items():
+            pass
+    filename = key+'.csv'
     file_exists = os.path.isfile(filename)
 
     with open(filename, 'a') as csv_file:
@@ -11,21 +16,14 @@ def write_to_csv(filename):
         if not file_exists:
             writer.writerow(['Data', 'Timestamp'])
 
-        for _ in range(10):
-            data = random_data()
-            timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 
-            writer.writerow([data, timestamp])
-            csv_file.flush()  # Flush the buffer to write immediately
+        for key, value in samples.items():
+            print(key, value)
+            for val in value:
+                print(val['Data'],val['Timestamp'])
+                writer.writerow([val['Data'],val['Timestamp']])
+                csv_file.flush()  # Flush the buffer to write immediately
 
-            time.sleep(1)  # Wait for 1 second
-
-def random_data():
-    # Replace this with your logic to generate random data
-    # For demonstration purposes, it generates a random integer
-    import random
-    return random.randint(1, 100)
 
 if __name__ == '__main__':
-    file_name = input("Enter the file name: ")+".csv"
-    write_to_csv(file_name)
+    write_to_csv()
